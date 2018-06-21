@@ -3,6 +3,7 @@
 <head>
   <title>Installing Gulp</title>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
   <div class="container">
@@ -22,11 +23,11 @@
 
     <h3 id="default-task">Default Task</h3>
     <p>The first thing we do with gulp is a default task.</p>
-    <code>const gulp = require('gulp');<br>
+    <pre>const gulp = require('gulp');<br>
           gulp.task('default', function() {<br>
           <br>
         });
-    </code>
+    </pre>
 
     <p>The first line <code>const gulp = require('gulp');</code> is telling
     Node.js that we need to use gulp, and we are going to refer to it as <code>gulp</code>.</p>
@@ -45,22 +46,22 @@
     <p>At the top of your file <code>const sass = require('gulp-sass');</code><br> This looks familiar!</p>
 
     <p><p>For Gulp 3:</p>
-      <code>gulp.task('styles', function() {<br>
-        gulp.src('sass/**/*.scss')<br>
-          .pipe(sass())<br>
-          .pipe(gulp.dest('./css'));<br>
-        });<br>
-      </code>
+      <pre>gulp.task('styles', function() {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass())
+          .pipe(gulp.dest('./css'));
+        });
+      </pre>
     </p>
 
     <p><p>For Gulp 4:</p>
-    <code>gulp.task('styles', function(done) {<br>
+    <pre>gulp.task('styles', function(done) {<br>
         gulp.src('sass/**/*.scss')<br>
           .pipe(sass())<br>
           .pipe(gulp.dest('./css'));<br>
           done();<br>
         });<br>
-      </code>
+      </pre>
     </p>
 
     <p>We are adding a new gulp task (a function for gulp to run), called 'styles'. <code>gulp.src('sass/**/*.scss')</code> is telling gulp where the files are that we want to run the task on. <code>.pipe(sass())</code> Telling gulp to take those files retreievd from that <code>src</code> command and run it through sass. Running it through sass with transpile it into css code. The last line, <code>.pipe(gulp.dest('./css'));</code> is telling gulp where it should put these new css files.</p>
@@ -71,22 +72,22 @@
    <p>So the complete new code for the styles task will be:</p>
 
    <p><p>For Gulp 3:</p>
-      <code>gulp.task('styles', function() {<br>
+      <pre>gulp.task('styles', function() {<br>
         gulp.src('sass/**/*.scss')<br>
           .pipe(sass()).on('error', sass.logError)<br>
           .pipe(gulp.dest('./css'));<br>
         });<br>
-      </code>
+      </pre>
     </p>
 
     <p><p>For Gulp 4:</p>
-    <code>gulp.task('styles', function(done) {<br>
+    <pre>gulp.task('styles', function(done) {<br>
         gulp.src('sass/**/*.scss')<br>
           .pipe(sass()).on('error', sass.logError)<br>
           .pipe(gulp.dest('./css'));<br>
           done();<br>
         });<br>
-      </code>
+      </pre>
     </p>
 
     <h3 id="auto-prefixer">Autoprefixer</h3>
@@ -100,7 +101,7 @@
 
     <p>Our new styles task with Autoprefixer:</p>
      <p><p>For Gulp 3:</p>
-      <code>gulp.task('styles', function() {<br>
+      <pre>gulp.task('styles', function() {<br>
         gulp.src('sass/**/*.scss')<br>
           .pipe(sass()).on('error', sass.logError)<br>
           .pipe(autoprefixer({<br>
@@ -108,11 +109,11 @@
         }))<br>
           .pipe(gulp.dest('./css'));<br>
         });<br>
-      </code>
+      </pre>
     </p>
 
     <p><p>For Gulp 4:</p>
-    <code>gulp.task('styles', function(done) {<br>
+    <pre>gulp.task('styles', function(done) {<br>
         gulp.src('sass/**/*.scss')<br>
           .pipe(sass()).on('error', sass.logError)<br>
           .pipe(autoprefixer({<br>
@@ -121,7 +122,7 @@
           .pipe(gulp.dest('./css'));<br>
           done();<br>
         });<br>
-      </code>
+      </pre>
     </p>
   </div>
 </body>
