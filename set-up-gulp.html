@@ -55,12 +55,12 @@
     </p>
 
     <p><p>For Gulp 4:</p>
-    <pre>gulp.task('styles', function(done) {<br>
-        gulp.src('sass/**/*.scss')<br>
-          .pipe(sass())<br>
-          .pipe(gulp.dest('./css'));<br>
-          done();<br>
-        });<br>
+    <pre>gulp.task('styles', function(done) {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass())
+          .pipe(gulp.dest('./css'));
+          done();
+        });
       </pre>
     </p>
 
@@ -72,21 +72,21 @@
    <p>So the complete new code for the styles task will be:</p>
 
    <p><p>For Gulp 3:</p>
-      <pre>gulp.task('styles', function() {<br>
-        gulp.src('sass/**/*.scss')<br>
-          .pipe(sass()).on('error', sass.logError)<br>
-          .pipe(gulp.dest('./css'));<br>
-        });<br>
+      <pre>gulp.task('styles', function() {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(gulp.dest('./css'));
+        });
       </pre>
     </p>
 
     <p><p>For Gulp 4:</p>
-    <pre>gulp.task('styles', function(done) {<br>
-        gulp.src('sass/**/*.scss')<br>
-          .pipe(sass()).on('error', sass.logError)<br>
-          .pipe(gulp.dest('./css'));<br>
-          done();<br>
-        });<br>
+    <pre>gulp.task('styles', function(done) {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(gulp.dest('./css'));
+          done();
+        });
       </pre>
     </p>
 
@@ -101,27 +101,27 @@
 
     <p>Our new styles task with Autoprefixer:</p>
      <p><p>For Gulp 3:</p>
-      <pre>gulp.task('styles', function() {<br>
-        gulp.src('sass/**/*.scss')<br>
-          .pipe(sass()).on('error', sass.logError)<br>
-          .pipe(autoprefixer({<br>
-            browsers: ['last 2 versions']<br>
-        }))<br>
-          .pipe(gulp.dest('./css'));<br>
-        });<br>
+      <pre>gulp.task('styles', function() {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(autoprefixer({
+            browsers: ['last 2 versions']
+        }))
+          .pipe(gulp.dest('./css'));
+        });
       </pre>
     </p>
 
     <p><p>For Gulp 4:</p>
-    <pre>gulp.task('styles', function(done) {<br>
-        gulp.src('sass/**/*.scss')<br>
-          .pipe(sass()).on('error', sass.logError)<br>
-          .pipe(autoprefixer({<br>
-            browsers: ['last 2 versions']<br>
-          }))<br>
-          .pipe(gulp.dest('./css'));<br>
-          done();<br>
-        });<br>
+    <pre>gulp.task('styles', function(done) {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(autoprefixer({
+            browsers: ['last 2 versions']
+          }))
+          .pipe(gulp.dest('./css'));
+          done();
+        });
       </pre>
     </p>
   </div>
