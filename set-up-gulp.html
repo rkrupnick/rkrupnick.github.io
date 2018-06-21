@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Installing Gulp</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Using Gulp</h1>
+    <h2>A Walkthrough of Udacity Part 3, Lesson 16</h2>
+
+    <ul>
+      <li>For a walkthrough installing gulp, <a href="install-gulp.html"></a>Click here</li>
+      <li><a href="#default-task">The Default Task</a></li>
+      <li><a href="#sass">Sass</a></li>
+      <li><a href="#auto-prefixer">Auto-prefixer</a></li>
+    </ul>
+
+    <h3>Note regarding Gulp 3 versus Gulp 4: The course was written in Gulp 3. If you choose to use Gulp 4, or you mistakenly downloaded the most recent version, I will also be letting you knwo the changes necessary to make sure your gulpfile.js works with Gulp 4</h3>
+    <h3>Note regarding variables and ES6: The course was written before
+      ES6 variables (<code>let</code> and <code>const</code> were used regularly. I am going to be using them instead of var in this post, but either one will work.</h3>
+
+    <h3 id="default-task">Default Task</h3>
+    <p>The first thing we do with gulp is a default task.</p>
+    <code>const gulp = require('gulp');
+          gulp.task('default', function() {
+
+        });
+    </code>
+
+    <p>The first line <code>const gulp = require('gulp');</code> is telling
+    Node.js that we need to use gulp, and we are going to refer to it as <code>gulp</code>.</p>
+
+    <p>Next we are defining the 'default' task, which is just a function! The word 'default' is a keyword that comes with gulp. It
+      means that this function is the one that will be run when we type <code>gulp</code> in the terminal by itself.
+    </p>
+
+
+    <h3 id="sass">Sass</h3>
+
+    <p>Sass is a cool tool that makes CSS less terrible to write and work with. The problem is, when we write in Sass, the code is not readable by the browser. We need to <em>transpile</em> it into CSS code, which <em>is</em> readable by the browser. One way of doing this is with Gulp.</p>
+
+    <p>We start by installing gulp-sass by typing <code>npm install gulp-sass</code>. This installs gulp-sass locally- so just in your project folder. If you want to use it in another project, you will have to install it again.</p>
+
+    <p>At the top of your file <code>const sass = require('gulp-sass');</code> This looks familiar!</p>
+
+    <p><p>For Gulp 3:</p>
+      <code>gulp.task('styles', function() {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass())
+          .pipe(gulp.dest('./css'));
+        });
+      </code>
+    </p>
+
+    <p><p>For Gulp 4:</p>
+    <code>gulp.task('styles', function(done) {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass())
+          .pipe(gulp.dest('./css'));
+          done();
+        });
+      </code>
+    </p>
+
+    <p>We are adding a new gulp task (a function for gulp to run), called 'styles'. <code>gulp.src('sass/**/*.scss')</code> is telling gulp where the files are that we want to run the task on. <code>.pipe(sass())</code> Telling gulp to take those files retreievd from that <code>src</code> command and run it through sass. Running it through sass with transpile it into css code. The last line, <code>.pipe(gulp.dest('./css'));</code> is telling gulp where it should put these new css files.</p>
+   <p>If you are using Gulp 4, just one thing needs to change, the task needs a way to know when sass is finished. It has a built-in function that does that, but you need to use it here, or else you will get an error. All you need to do is add done to the arguments list of the function, and then call done() once at the end of the function. See above. Anytime you get this error: <code>The following tasks did not complete: styles-test Did you forget to signal async completion?</code>, you can likely fix it by adding done and done()!</p>
+
+   <p>When Sass encounters an error, it just stops. We most likely don't want this behavior. We want Sass to finish and just log the error. We do this by adding <code>.on('error', sass.logError))</code> after <code>.pipe(sass)</code></p>
+
+   <p>So the complete new code for the styles task will be:</p>
+
+   <p><p>For Gulp 3:</p>
+      <code>gulp.task('styles', function() {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(gulp.dest('./css'));
+        });
+      </code>
+    </p>
+
+    <p><p>For Gulp 4:</p>
+    <code>gulp.task('styles', function(done) {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(gulp.dest('./css'));
+          done();
+        });
+      </code>
+    </p>
+
+    <h3 id="auto-prefixer">Autoprefixer</h3>
+
+    <p>Autoprefixer is another tool that makes it easier for us to write CSS. It adds vendor prefixes when necessary. For more information about vendor prefixes, please <a href="https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix">check out MDN</a>.</p>
+
+    <p>Since Autoprefixer works on CSS files, we can use it in the same task as our Sass. After we run sass, we will run autoprefixer. We also tell autoprefixer that we want it to work with the last 2 browser versions, though we can change this if we like.</p>
+
+    <p>Our new styles task with Autoprefixer:</p>
+     <p><p>For Gulp 3:</p>
+      <code>gulp.task('styles', function() {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(autoprefixer({
+            browsers: ['last 2 versions']
+        }))
+          .pipe(gulp.dest('./css'));
+        });
+      </code>
+    </p>
+
+    <p><p>For Gulp 4:</p>
+    <code>gulp.task('styles', function(done) {
+        gulp.src('sass/**/*.scss')
+          .pipe(sass()).on('error', sass.logError)
+          .pipe(autoprefixer({
+            browsers: ['last 2 versions']
+          }))
+          .pipe(gulp.dest('./css'));
+          done();
+        });
+      </code>
+    </p>
+  </div>
+</body>
+</html>
