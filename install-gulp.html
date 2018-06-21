@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Installing Gulp</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Installing  Gulp</h1>
+    <h2>A Walkthrough of Udacity Part 3, Lesson 16</h2>
+
+    <section id="installing=gulp">
+      The course links you to the official Getting Started docs <a href="https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md">here</a>. I will walk you through it.
+
+      <h3>Installing Gulp Step by Step</h3>
+      <ul>
+        <li>Check for Node and npm
+        <ul>
+          <li>
+              <p>In the terminal type <code>node --version</code></p>
+              <p>This checks which version of Node you have installed.
+                'Node is an open-source, cross-platform JavaScript run-time environment that executes JavaScript code server-side.' <a href="https://en.wikipedia.org/wiki/Node.js">Wikipedia</a>. In our case this just means that it can run some really
+                cool and helpful tools for us.</p>
+          </li>
+          <li>
+            <p>In the terminal type <code>npm --version</code></p>
+            <p>Same as above, only this is npm - node package manager. So Node has all
+            these cool tools, but it can be a pain to keep track of them, update them, run them,
+            organize them, etc. Npm gives us a way to handle all of that.</p>
+          </li>
+        </ul>
+      </li>
+      <li>Install the <code>gulp</code> command
+          <p>In the terminal type <code>npm install --global gulp-cli</code></p>
+          <p>Ok, let's break this one down.</p>
+          <p>We are using npm, the package manager, to install.</p>
+          <p>We are installing it globally (--global), that means it will be available on our whole computer, not just in our project folder.</p>
+          <p>Now, note that it says we are installing the gulp <em>command</em>. We are installing this so that we can run gulp on our command line or terminal.</p>
+          <p>Look at the end of this line of code, it doesn't just say 'gulp', it says 'gulp-cli'. CLI usually stands for Command Line Interface. So we are installing an interface with gulp on the command line.</p>
+      </li>
+      <li>Create a package.json file
+        <p>You have multiple ways of doing this.
+          <ul>
+            <li>My preffered way: In the terminal, in the root of project's directory,
+              type <code>npm init</code> It will ask you some questions, for now, you can just hit enter on each one. The defaults will work fine for you.
+            </li>
+            <li>Via the terminal with no set-up: just type <code>touch package.json</code></li>
+            <li>In your code editor, simply make a file called package.json</li>
+          </ul>
+        </p>
+      </li>
+      <li>Install <code>gulp</code> in your devDependencies
+        <p class="warning">If you wish to be able to follow along with the videos and not make any modifications, use this code for this:
+          <code>npm install --save-dev gulp</code></p>
+
+        Projects can have dependencies (things that they rely on in order to work) in various
+        'stages' of the project. This is usually divided into <code>production</code>,
+        <code>development</code>, and <code>testing</code>.
+
+        With <code>--save-dev</code>, we are telling npm that our project is <em>dependent</em> on gulp, but only
+        while it is in development. The project will not need Gulp to run once it is online,
+        thus having it there would be wasteful.
+
+        <p>The gulp@next tells npm to install a higher version. Currently installing
+          <code>gulp</code> installs version 3.9.1. Installing <code>gulp@next</code> installs version 4.0.0</p>
+
+        <code>npm install --save-dev gulp@next</code>
+      </li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
