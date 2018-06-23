@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rachel Krupnick</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>PhantomJS is Dead, How do I run Jasmine with Gulp?</h1>
+
+    <p>This is short and sweet. I will flesh it out soon, I promise. But for now,
+    this should work!</p>
+
+    <p>PhantomJS is dead, and it's very difficult to get it downloaded and working.
+      I will walk you through an alternative to get Jasmine running in Gulp.
+    </p>
+
+    <p>Note: I have Jasmine working with this set up, but the built in test from Udacity is failing its test for me. But if I add my own tests that I know will pass, they pass.</p>
+
+    <h3>Download gulp-jasmine-browser</h3>
+    <code>npm install gulp-jasmine-browser</code>
+
+    <h4>Install a couple other packages we need for the above to run</h4>
+    <code>npm install puppeteer</code>
+    <code>npm install jasmine-core</code>
+
+    <p></p>
+
+    <p>Tell gulp we want to use Jasmine Browser! </p>
+    <p><code>var jasmineBrowser = require('gulp-jasmine-browser');</code></p>
+
+    <h3>Two Options: Run a server in browser, or run in terminal</h3>
+
+    <p>They are both simple, I suggest trying both, just to see what the different code is like and seeing how you can do something multiple ways.</p>
+
+    <h3>In the terminal: </h3>
+
+    <p>Add the following to your gulpfile:</p>
+      <pre>gulp.task('tests', function() {
+            return gulp.src('tests/spec/extraSpec.js')
+            .pipe(jasmineBrowser.specRunner({console: true}))
+            .pipe(jasmineBrowser.headless({driver: 'chrome'}));
+          });</pre>
+
+    <p>Run <code>gulp tests</code> in your terminal, you should get the output from the tests.</p>
+
+  <h3>In your browser: </h3>
+
+    <p>Add the following to your gulpfile:</p>
+      <pre>gulp.task('tests', function() {
+            gulp.src('tests/spec/extraSpec.js')
+            .pipe(jasmineBrowser.specRunner())
+            .pipe(jasmineBrowser.server({port:8888}));
+          });</pre>
+
+    <p>Run <code>gulp tests</code> in your terminal. Once your terminal says something like <code>Jasmine server listening on port 8888</code>, go into your browser and go to <code>localhost:8888</code>. You should see the test runin the browser there. When you are done, go back into your terminal and hit Control + C to exit from the server.</p>
+  </div>
+</body>
+</html>
