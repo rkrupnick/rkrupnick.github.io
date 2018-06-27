@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Installing Gulp</title>
+  <title>Setting Up Gulp</title>
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
@@ -65,7 +65,7 @@
       </pre>
     </p>
 
-    <p>We are adding a new gulp task (a function for gulp to run), called 'styles'. <code>gulp.src('sass/**/*.scss')</code> is telling gulp where the files are that we want to run the task on. <code>.pipe(sass())</code> Telling gulp to take those files retreievd from that <code>src</code> command and run it through sass. Running it through sass with transpile it into css code. The last line, <code>.pipe(gulp.dest('./css'));</code> is telling gulp where it should put these new css files.</p>
+    <p>We are adding a new gulp task (a function for gulp to run), called 'styles'. In order to run this task, you will type <code>gulp styles</code> into the terminal. <code>gulp.src('sass/**/*.scss')</code> is telling gulp where the files are that we want to run the task on. <code>.pipe(sass())</code> Telling gulp to take those files retreievd from that <code>src</code> command and run it through sass. Running it through sass with transpile it into css code. The last line, <code>.pipe(gulp.dest('./css'));</code> is telling gulp where it should put these new css files.</p>
    <p>If you are using Gulp 4, just one thing needs to change, the task needs a way to know when sass is finished. It has a built-in function that does that, but you need to use it here, or else you will get an error. All you need to do is add done to the arguments list of the function, and then call done() once at the end of the function. See above. Anytime you get this error: <code>The following tasks did not complete: styles-test Did you forget to signal async completion?</code>, you can likely fix it by adding done and done()!</p>
 
    <p>When Sass encounters an error, it just stops. We most likely don't want this behavior. We want Sass to finish and just log the error. We do this by adding <code>.on('error', sass.logError))</code> after <code>.pipe(sass)</code></p>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Installing Gulp</title>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Adding Browser-Sync to your Gulp</h1>
+    <h2>A Walkthrough of Udacity Part 3, Lesson 17</h2>
+      <p>This post assumes you are following along with a Udacity course. If you are not in the FEND Nanodegree program, you can follow along with Udacity's <a href="https://www.udacity.com/course/web-tooling-automation--ud892">Web Tooling and Automation Course</a></p>
+
+      <ul>
+        <li>Contents:</li>
+        <li><a href="#watcher">Adding a Sass Watcher</a></li>
+          <ul>
+            <li><a href="#watcher-gulp-3">In Gulp 3</a></li>
+            <li><a href="#watcher-gulp-4">In Gulp 4</a></li>
+          </ul>
+        <li><a href="#add-browser-sync">Add Browser Sync</a></li>
+        <li><a href="#end-result">What Should my Gulpfile Look Like at the End of Lesson 17??</a></li>
+      </ul>
+
+    <p>When you are using things like SASS, you need to re-build your css files <em>every single time you want to check to see what you've done</em>. For people like me, who refresh all the time, this is just unacceptable. Luckily, we have tool for this!</p>
+
+    <p>Browser Sync watches your project's files to see if you have made changes, and then it auto-magically rebuilds the css files (in this case- there are other things we might want it to re-build in future) and refreshes the browser. Letting us just code.</p>
+
+    <h3 id="watcher">First! Let's add a watcher</h3>
+
+    <p>This is sort of hinted at the end of Lesson 16, but I know I didn't know if I needed to add this or what. Now is the time to add a <code>watch</code> task to your default task. A watch task is a task in which Gulp is looking for something in your code. In this case, any change. </p>
+
+    <h4 id="watcher-gulp-3">In Gulp 3</h4>
+
+    <p><em>If you are using Gulp 3:</em> Your 'default' task needs to be the first task. Everything else should follow. In Gulp 4, it is the opposite! Now, you will need to add ['styles'] to the list of paramenter in your default function. Then, add this line to the default function : <code>gulp.watch('sass/**/*.scss', ['styles']);</code></p>
+
+    <p>Altogether, your default task function should look like this:</p>
+    <pre>
+      gulp.task('default', ['styles'], function() {
+        gulp.watch('sass/**/*.scss', ['styles']);
+      });
+    </pre>
+
+    <p>This says: Hey Gulp! Please watch all the files with the extension .scss in my sass folder for changes. If anything changes, pleae apply the styles task to the files. I want to repeat that, because it is cool. We have this 'styles' function, that does great things to our code. But we do not have to manually call it. Gulp figures out when changes happen, and run that function for us.
+
+
+    </p>
+
+    <h4 id="watcher-gulp-4">In Gulp 4</h4>
+
+    <p>First, make sure that your 'default' task is the very last task in your gulpfile. The 'styles' task needs to be before it for this to work. Now, add this line to the default function : <code>gulp.watch('sass/**/*.scss', gulp.series('styles');</code></p>
+
+    <p>Altogether, your default task function should look like this:</p>
+    <pre>
+      gulp.task('default', function() {
+        gulp.watch('sass/**/*.scss', gulp.series('styles'));
+      });
+    </pre>
+
+    <p>This says: Hey Gulp! Please watch all the files with the extension .scss in my sass folder for changes. If anything changes, pleae apply the styles task to the files. I want to repeat that, because it is cool. We have this 'styles' function, that does great things to our code. But we do not have to manually call it. Gulp figures out when changes happen, and run that function for us.<code>gulp.series</code> is telling your code how you want it to run. You have a couple options, but the most popular in Gulp 4 are <code>series</code> and <code>parallel</code>. Series means that you want the tasks to run one after another. Parallel means you want them to run at the same time.
+
+    </p>
+
+
+
+    <h3 id="add-browser-sync">How do I add Browser Sync?</h3>
+
+    <p>Well, if you followed the other tutorials, you might have a good idea of where we might start....</p>
+
+    <code>npm install browser-sync</code> <-- in the terminal
+
+    <code>const browserSync = require('browser-sync').create();</code> <-- in the gulpfile.js
+
+    <p>Wait...that one was a little different! Yeah, don't forget the create() at the end there!</p>
+
+    <p>Ok, now we are going to add some code to our 'default' task. This is the same for Gulp 3 and 4! This is what we are going to add:</p>
+    <pre>
+      browserSync.init({
+        server: './dist'
+      });
+    </pre>
+    <p>Last, we are going to add a line to the bottom of our 'styles' function:</p>
+    <code>.pipe(browserSync.stream());</code>
+
+    <p>The first bit tells Gulp that we want it to run a server with the files in our dist folder. The second part tells Browser Sync when it should reload. We don't want it to bother reloading before Gulp is done converting the Sass files into CSS files. So, we put it at the end of the styles function so that it doesn't run until the css files are in the destination.</p>
+
+    <p>Now, run the default task. So, <code>gulp</code> in your terminal. After a few seconds, your browser should open up with the sample web page open. I recommend playing with the Sass files now. Watch how it changes in the browser. Once you are done, hit CTRL + C to stop the task and the server. Now, look in your terminal. You likely have some interesting output that shows what happened. Here's mine:</p>
+
+    <img src="img/gulp-term-shot.png">
+
+    <h3>Now, for the Big Finish!</h3>
+    <p>This is what your gulpfile should look like in Gulp 3, and then Gulp 4:</p>
+    <img src="img/gulp3-17.png">
+    <img src="img/gulp4-17.png">
+
+  </div>
+</body>
+</html>
